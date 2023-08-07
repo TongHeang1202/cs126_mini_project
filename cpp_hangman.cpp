@@ -30,18 +30,26 @@ class Hangman {
             }
         }
 
+        void displayScreen(){
+            cout << "-----------------------------" << endl;
+            cout << "Lives: " << lives << endl;
+            hiddenWord = "";
+            for (int i = 0; i < word.length(); i++){
+                if (guessedLetters.find(word[i]) != string::npos) hiddenWord = hiddenWord + word[i] + " ";
+                else hiddenWord += "_ ";
+            }
+            cout << hiddenWord << endl;
+        }
+
     public:
         void startGame(){
+            lives = 7;
             gamesPlayed++;
             randomizeWord();
 
             while(true){
+                displayScreen();
                 getPlayerGuess();
-                hiddenWord = "";
-                for (int i = 0; i < word.length(); i++){
-                    hiddenWord = hiddenWord + "_ ";
-                }
-                cout << guessedLetters;
             }
 
         }
