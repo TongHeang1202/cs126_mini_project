@@ -35,14 +35,16 @@ class Hangman {
                 if (guess.length() > 1) cout << "Only 1 letter allowed!" << endl;
                 else if (guess[0] < 'a' || guess[0] > 'z') cout << "Only lowercase letters allowed!" << endl;
                 else if (guessedLetters.find(guess[0]) != string::npos) cout << "Already guessed that letter!" << endl;
-                else break;
+                else {
+                    guessedLetters += guess[0];
+                    break;
+                }
             }
         }
 
         void checkPlayerGuess(){
             if (word.find(guess[0]) != string::npos){
                 cout << "Correct Guess!" << endl;
-                guessedLetters += guess[0];
 
                 isWin = true;
                 for (int i = 0; i < word.length(); i++){
@@ -50,8 +52,8 @@ class Hangman {
                 }
             }
             else {
+                isWin = false;
                 cout << "Wrong Guess!" << endl;
-                guessedLetters += guess[0];
                 lives--;
             }
         }
@@ -89,7 +91,6 @@ class Hangman {
                 getPlayerGuess();
                 checkPlayerGuess();
                 if (checkGameEnd()) break;
-                cout << "-----------------------------" << endl;
             }
         }
 };
