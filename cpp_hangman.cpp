@@ -21,7 +21,7 @@ class Hangman {
             cout << "Lives: " << lives << endl;
             hiddenWord = "";
             for (int i = 0; i < word.length(); i++){
-                if (guessedLetters.find(word[i]) != string::npos) hiddenWord += word[i];
+                if (guessedLetters.find(word[i]) != string::npos) hiddenWord = hiddenWord + word[i] + " ";
                 else hiddenWord += "_ ";
             }
             cout << hiddenWord << endl;
@@ -68,11 +68,14 @@ class Hangman {
             else if (isWin){
                 cout << "-----------------------------" << endl;
                 cout << "YOU WON!" << endl;
+                cout << "The word is: " << word << endl;
                 gamesWon++;
                 return true;
             }
             return false;
         }
+
+        
 
     public:
         Hangman(){
