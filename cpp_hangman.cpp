@@ -8,7 +8,7 @@ class Hangman {
     private:
         int lives, gamesPlayed, gamesWon;
         string word, hiddenWord, guess, guessedLetters;
-        bool isWin;
+        bool gameLoop, isWin;
 
         void randomizeWord(){
             int const wordListSize = 3;
@@ -74,7 +74,18 @@ class Hangman {
             }
             return false;
         }
-
+        
+        bool playAgain(){
+            char choice;
+            while (true){
+                cout << "Would you like to play again? (Y / N): ";
+                cin >> choice;
+                cin.ignore();
+                if (choice == 'y' || choice =='Y') return true;
+                else if (choice == 'n' || choice =='N') return false;
+                else cout << "Invalid Option" << endl;
+            }
+        }
         
 
     public:
@@ -84,16 +95,26 @@ class Hangman {
         }
 
         void startGame(){
-            lives = 7;
             gamesPlayed++;
+            gameLoop = true;
+            lives = 7;
+            guessedLetters = "";
             randomizeWord();
 
-            while(true){
+            while(gameLoop){
                 cout << "-----------------------------" << endl;
                 displayScreen();
                 getPlayerGuess();
                 checkPlayerGuess();
-                if (checkGameEnd()) break;
+                if (checkGameEnd()) {
+                    if (playAgain()) startGame();
+                    else {
+                        cout << "Games Played: " << gamesPlayed << endl;
+                        cout << "Games Won: " << gamesWon << endl;
+                        cout << "Games Lost: " << gamesPlayed - gamesWon << endl;
+                        gameLoop = false;
+                    }
+                }
             }
         }
 };
