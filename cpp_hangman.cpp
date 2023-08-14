@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <cstdlib>
 #include <ctime>
@@ -11,8 +12,12 @@ class Hangman {
         bool gameLoop, isWin;
 
         void randomizeWord(){
-            int const wordListSize = 3;
-            string wordList[] = {"apple", "banana", "car"};
+            int const wordListSize = 700;
+            string wordList[700];
+            ifstream inputFile("word_list.txt");
+            for (int i = 0; i < wordListSize; i++){
+                inputFile >> wordList[i];
+            }
             srand(time(0));
             word = wordList[rand() % wordListSize];
         }
