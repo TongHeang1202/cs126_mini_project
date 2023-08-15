@@ -102,7 +102,7 @@ class Hangman {
         void startGame(){
             gamesPlayed++;
             gameLoop = true;
-            lives = 7;
+            lives = 10;
             guessedLetters = "";
             randomizeWord();
 
