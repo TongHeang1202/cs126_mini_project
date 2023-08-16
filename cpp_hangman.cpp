@@ -11,6 +11,7 @@ class Hangman {
         string word, hiddenWord, guess, guessedLetters;
         bool gameLoop, isWin;
 
+        // Function to get words from text file and then give a random word
         void randomizeWord(){
             int const wordListSize = 700;
             string wordList[700];
@@ -22,6 +23,7 @@ class Hangman {
             word = wordList[rand() % wordListSize];
         }
 
+        // Function to display lives and hidden word
         void displayScreen(){
             cout << "Lives: " << lives << endl;
             hiddenWord = "";
@@ -32,6 +34,7 @@ class Hangman {
             cout << hiddenWord << endl;
         }
 
+        // Function to get a valid guess from the player
         void getPlayerGuess(){
             while (true){
                 cout << "Guess a letter: ";
@@ -47,6 +50,7 @@ class Hangman {
             }
         }
 
+        // Function to check if player guess correctly or not
         void checkPlayerGuess(){
             if (word.find(guess[0]) != string::npos){
                 cout << "Correct Guess!" << endl;
@@ -63,6 +67,7 @@ class Hangman {
             }
         }
 
+        // Function to check if the game reach the end and check if player win or lose
         bool checkGameEnd(){
             if (lives == 0){
                 cout << "-----------------------------" << endl;
@@ -80,6 +85,7 @@ class Hangman {
             return false;
         }
         
+        // Function to ask player if they want to play again
         bool playAgain(){
             char choice;
             while (true){
@@ -94,11 +100,13 @@ class Hangman {
         
 
     public:
+        // Constructor
         Hangman(){
             gamesPlayed = 0;
             gamesWon = 0;
         }
 
+        // Main Game Function
         void startGame(){
             gamesPlayed++;
             gameLoop = true;
@@ -111,15 +119,15 @@ class Hangman {
                 displayScreen();
                 getPlayerGuess();
                 checkPlayerGuess();
-                if (checkGameEnd()) {
-                    if (playAgain()) startGame();
-                    else {
-                        cout << "Games Played: " << gamesPlayed << endl;
-                        cout << "Games Won: " << gamesWon << endl;
-                        cout << "Games Lost: " << gamesPlayed - gamesWon << endl;
-                        gameLoop = false;
-                    }
-                }
+                if (checkGameEnd()) break;
+            }
+            
+            if (playAgain()) startGame();
+            else {
+                cout << "Games Played: " << gamesPlayed << endl;
+                cout << "Games Won: " << gamesWon << endl;
+                cout << "Games Lost: " << gamesPlayed - gamesWon << endl;
+                gameLoop = false;
             }
         }
 };
